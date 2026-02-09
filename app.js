@@ -1,10 +1,14 @@
 function login() {
-    let u = document.getElementById("username").value;
-    let p = document.getElementById("password").value;
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
 
-    if (u === "admin" && p === "admin") {
+    if (user === "admin" && pass === "admin") {
         window.location.href = "dashboard.html";
     } else {
-        alert("Invalid Login");
+        alert("Invalid Credentials");
     }
+}
+
+function logout() {
+    window.location.href = "index.html";
 }
