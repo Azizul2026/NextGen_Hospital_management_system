@@ -1,32 +1,33 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
 
-    <h2>NextGen Hospital Login</h2>
+    <h1>🏥 NextGen Hospital Dashboard</h1>
 
-    <input type="text" id="username" placeholder="Username">
-    <br><br>
+    <p>Welcome Admin 🎉</p>
 
-    <input type="password" id="password" placeholder="Password">
-    <br><br>
+    <hr>
 
-    <button onclick="login()">Login</button>
+    <h3>Menu</h3>
+
+    <ul>
+        <li>Patient Management</li>
+        <li>Doctor Records</li>
+        <li>Appointments</li>
+        <li>Billing</li>
+    </ul>
+
+    <br>
+
+    <button onclick="logout()">Logout</button>
 
     <script>
-        function login() {
-
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-
-            if (username == "admin" && password == "admin") {
-                window.location.href = "dashboard.html";
-            } else {
-                alert("Wrong username or password");
-            }
-
+        function logout() {
+            window.location.href = "index.html";
         }
     </script>
 
