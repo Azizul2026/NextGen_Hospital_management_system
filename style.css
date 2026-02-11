@@ -3,81 +3,45 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* LOGIN */
 .login-body {
-    background: linear-gradient(to right, #0f9b8e, #1cbbb4);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
 }
 
-.login-card {
+.login-box {
     background: white;
-    padding: 30px;
-    width: 320px;
-    text-align: center;
+    padding: 40px;
     border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.login-card input {
-    width: 90%;
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+.login-box input {
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.login-card button {
-    background: #1cbbb4;
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: #2a5298;
     color: white;
     border: none;
-    padding: 10px;
-    width: 100%;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-/* DASHBOARD */
-.sidebar {
-    width: 220px;
-    height: 100vh;
-    background: #0f9b8e;
-    color: white;
-    position: fixed;
-    padding: 20px;
-}
-
-.sidebar a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.sidebar a:hover {
-    background: rgba(255,255,255,0.2);
-}
-
-.main {
-    margin-left: 240px;
-    padding: 20px;
-}
-
-.topbar {
-    background: #f4f6f8;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-.cards {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.card {
-    background: white;
-    padding: 25px;
-    width: 200px;
-    border-radius: 10px;
-    text-align: center;
+.login-box button:hover {
+    background: #1e3c72;
 }
