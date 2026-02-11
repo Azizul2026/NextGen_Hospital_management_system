@@ -1,44 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard - NextGen HMS</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Login Page</title>
 </head>
 
 <body>
 
-<div class="sidebar">
-    <h2>🏥 NextGen HMS</h2>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="#">Patients</a>
-    <a href="#">Doctors</a>
-    <a href="#">Appointments</a>
-    <a href="#" onclick="logout()">Logout</a>
-</div>
+    <h2>NextGen Hospital Login</h2>
 
-<div class="main">
-    <div class="topbar">
-        <h2>Hospital Dashboard</h2>
-    </div>
+    <input type="text" id="username" placeholder="Username">
+    <br><br>
 
-    <div class="cards">
-        <div class="card">
-            <h3>Patients</h3>
-            <p>120</p>
-        </div>
-        <div class="card">
-            <h3>Doctors</h3>
-            <p>25</p>
-        </div>
-        <div class="card">
-            <h3>Appointments</h3>
-            <p>45</p>
-        </div>
-    </div>
-</div>
+    <input type="password" id="password" placeholder="Password">
+    <br><br>
 
-<script src="app.js"></script>
+    <button onclick="login()">Login</button>
+
+    <script>
+        function login() {
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username == "admin" && password == "admin") {
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Wrong username or password");
+            }
+
+        }
+    </script>
+
 </body>
 </html>
-
