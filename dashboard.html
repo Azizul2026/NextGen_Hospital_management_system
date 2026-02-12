@@ -1,35 +1,80 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - NextGen HMS</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <h1>🏥 NextGen Hospital Dashboard</h1>
+<div class="sidebar">
+    <h2>🏥 NextGen HMS</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="#">Manage Patients</a>
+    <a href="#">Manage Doctors</a>
+    <a href="#">Appointments</a>
+    <a href="#" onclick="logout()">Logout</a>
+</div>
 
-    <p>Welcome Admin 🎉</p>
+<div class="main">
 
-    <hr>
+    <div class="topbar">
+        <h2>Welcome, Admin 👨‍💼</h2>
+    </div>
 
-    <h3>Menu</h3>
+    <!-- Statistics Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Total Patients</h3>
+            <p>120</p>
+        </div>
 
-    <ul>
-        <li>Patient Management</li>
-        <li>Doctor Records</li>
-        <li>Appointments</li>
-        <li>Billing</li>
-    </ul>
+        <div class="card">
+            <h3>Total Doctors</h3>
+            <p>25</p>
+        </div>
 
-    <br>
+        <div class="card">
+            <h3>Total Appointments</h3>
+            <p>45</p>
+        </div>
+    </div>
 
-    <button onclick="logout()">Logout</button>
+    <!-- Patient Section -->
+    <div style="margin-top:40px;">
+        <h3>Recent Patients</h3>
 
-    <script>
-        function logout() {
-            window.location.href = "index.html";
-        }
-    </script>
+        <table border="1" width="100%" cellpadding="10" style="background:white; margin-top:10px;">
+            <tr style="background:#0f9b8e; color:white;">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Disease</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Rahul Sharma</td>
+                <td>35</td>
+                <td>Fever</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Anjali Verma</td>
+                <td>28</td>
+                <td>Diabetes</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Imran Khan</td>
+                <td>42</td>
+                <td>Heart Issue</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script src="js/app.js"></script>
 
 </body>
 </html>
