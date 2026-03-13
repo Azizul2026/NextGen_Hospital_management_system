@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 <title>Patient Panel</title>
@@ -32,7 +31,9 @@ return
 
 try{
 
-const response = await fetch("https://nextgen-hospital-management-application.onrender.com/add_patient",{
+const response = await fetch(
+"https://nextgen-hospital-management-application.onrender.com/add_patient",
+{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -50,7 +51,9 @@ document.getElementById("cause").value=""
 
 }
 catch(error){
-alert("Server error. Try again.")
+
+alert("Server error. Please try again later.")
+
 }
 
 }
