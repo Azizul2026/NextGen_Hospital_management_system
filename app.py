@@ -6,21 +6,20 @@ from neo4j import GraphDatabase
 
 app = Flask(__name__)
 
-# Enable CORS (VERY IMPORTANT for GitHub Pages)
+# Enable CORS (for GitHub Pages)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Secret key for JWT
+# Secret key
 app.config["JWT_SECRET_KEY"] = "nextgen_secret_key"
 
-# Initialize extensions
+# Extensions
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
-# Neo4j connection
-from neo4j import GraphDatabase
+# Neo4j AuraDB connection
 uri = "neo4j+s://44ab8284.databases.neo4j.io"
 username = "neo4j"
-password = "neo4j123"
+password = "neo4j123"   # ⚠️ Replace with AuraDB password
 
 driver = GraphDatabase.driver(uri, auth=(username, password))
 
@@ -48,7 +47,8 @@ users = [
 def home():
     return "NextGen HMS Backend Running"
 
-# LOGIN API
+
+# LOGIN
 @app.route("/login", methods=["POST"])
 def login():
 
@@ -78,34 +78,41 @@ def dashboard():
     username = get_jwt_identity()
 
     return jsonify({
-        "message": f"Welcome {username} to the dashboard"
+        "message": f"Welcome {username}"
     })
 
 
-# Patient submits details
+# Add patient
 @app.route("/add_patient", methods=["POST"])
 def add_patient():
 
-    data = request.json
+    try:
 
-    name = data.get("name")
-    age = data.get("age")
-    cause = data.get("cause")
+        data = request.get_json()
 
-    with driver.session() as session:
-        session.run(
-            "CREATE (p:Patient {name:$name, age:$age, cause:$cause})",
-            name=name,
-            age=age,
-            cause=cause
-        )
+        name = data.get("name")
+        age = data.get("age")
+        cause = data.get("cause")
 
-    return jsonify({
-        "message": "Patient added successfully"
-    })
+        if not name or not age or not cause:
+            return jsonify({"message": "Missing fields"}), 400
+
+        with driver.session() as session:
+            session.run(
+                "CREATE (p:Patient {name:$name, age:$age, cause:$cause})",
+                name=name,
+                age=age,
+                cause=cause
+            )
+
+        return jsonify({"message": "Patient added successfully"}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({"error": str(e)}), 500
 
 
-# Admin sees all patients
+# Get patients
 @app.route("/patients", methods=["GET"])
 @jwt_required()
 def get_patients():
@@ -123,7 +130,7 @@ def get_patients():
     return jsonify(patients)
 
 
-# Admin assigns doctor + appointment
+# Assign doctor
 @app.route("/assign_doctor", methods=["POST"])
 @jwt_required()
 def assign_doctor():
@@ -145,12 +152,10 @@ def assign_doctor():
         doctor=doctor,
         date=date)
 
-    return jsonify({
-        "message": "Doctor assigned successfully"
-    })
+    return jsonify({"message": "Doctor assigned successfully"})
 
 
-# Doctor sees assigned patients
+# Doctor patients
 @app.route("/doctor_patients/<doctor>", methods=["GET"])
 @jwt_required()
 def doctor_patients(doctor):
