@@ -17,9 +17,9 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
 # Neo4j AuraDB connection
-uri = "neo4j+s://44ab8284.databases.neo4j.io"
-username = "neo4j"
-password = "neo4j123"   # ⚠️ Replace with AuraDB password
+uri = "neo4j+s://ce37beb5.databases.neo4j.io"
+username = "ce37beb5"
+password = "w43I8rAHmFSjwFoYgiwwQoKTB5GJK7OH5XbwjZXm2Sg"   # ⚠️ Replace with AuraDB password
 
 driver = GraphDatabase.driver(uri, auth=(username, password))
 
