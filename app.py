@@ -17,6 +17,7 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 
 # Neo4j connection
+from neo4j import GraphDatabase
 uri = "neo4j+s://44ab8284.databases.neo4j.io"
 username = "neo4j"
 password = "neo4j123"
