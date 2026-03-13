@@ -6,22 +6,22 @@ from neo4j import GraphDatabase
 
 app = Flask(__name__)
 
+# Enable CORS (VERY IMPORTANT for GitHub Pages)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 # Secret key for JWT
 app.config["JWT_SECRET_KEY"] = "nextgen_secret_key"
 
 # Initialize extensions
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
-CORS(app)
 
-from neo4j import GraphDatabase
-
+# Neo4j connection
 uri = "bolt://127.0.0.1:7687"
 username = "neo4j"
 password = "neo4j123"
 
 driver = GraphDatabase.driver(uri, auth=(username, password))
-
 
 # Demo users
 users = [
@@ -42,12 +42,10 @@ users = [
     }
 ]
 
-
 # Home route
 @app.route("/")
 def home():
     return "NextGen HMS Backend Running"
-
 
 # LOGIN API
 @app.route("/login", methods=["POST"])
@@ -88,6 +86,7 @@ def dashboard():
 def add_patient():
 
     data = request.json
+
     name = data.get("name")
     age = data.get("age")
     cause = data.get("cause")
@@ -95,10 +94,14 @@ def add_patient():
     with driver.session() as session:
         session.run(
             "CREATE (p:Patient {name:$name, age:$age, cause:$cause})",
-            name=name, age=age, cause=cause
+            name=name,
+            age=age,
+            cause=cause
         )
 
-    return jsonify({"message": "Patient added successfully"})
+    return jsonify({
+        "message": "Patient added successfully"
+    })
 
 
 # Admin sees all patients
@@ -107,6 +110,7 @@ def add_patient():
 def get_patients():
 
     with driver.session() as session:
+
         result = session.run("MATCH (p:Patient) RETURN p")
 
         patients = []
@@ -124,18 +128,25 @@ def get_patients():
 def assign_doctor():
 
     data = request.json
+
     patient = data.get("patient")
     doctor = data.get("doctor")
     date = data.get("date")
 
     with driver.session() as session:
+
         session.run("""
         MATCH (p:Patient {name:$patient})
         MERGE (d:Doctor {name:$doctor})
         CREATE (p)-[:APPOINTMENT {date:$date}]->(d)
-        """, patient=patient, doctor=doctor, date=date)
+        """,
+        patient=patient,
+        doctor=doctor,
+        date=date)
 
-    return jsonify({"message": "Doctor assigned successfully"})
+    return jsonify({
+        "message": "Doctor assigned successfully"
+    })
 
 
 # Doctor sees assigned patients
@@ -144,6 +155,7 @@ def assign_doctor():
 def doctor_patients(doctor):
 
     with driver.session() as session:
+
         result = session.run("""
         MATCH (p:Patient)-[r:APPOINTMENT]->(d:Doctor {name:$doctor})
         RETURN p.name AS patient, p.cause AS cause, r.date AS date
